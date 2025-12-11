@@ -1,0 +1,29 @@
+{% extends 'entidades/index.html' %}
+
+{% block titulo %}
+<h1>Lo último que escribí</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<h2>Crear nuevo Post</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Publicar</button>
+</form>
+
+<h2>Lista de Posts</h2>
+<ul>
+    {% for post in Posts %}
+    <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content|truncatewords:30 }}</p>
+        <p><strong>Categoría:</strong> {{ post.category.name }}</p>
+        <p><strong>Etiquetas:</strong> {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        {% if post.image %}<img src="{{ post.image.url }}" alt="Imagen del post" style="max-width:200px;" />{% endif %}
+        <a href=>Leer más</a>
+    </li>
+    {% empty %}
+    <li>No hay posts disponibles.</li>
+    {% endfor %}
+{% endblock contenido %}

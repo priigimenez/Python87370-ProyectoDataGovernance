@@ -1,0 +1,10 @@
+{% extends 'entidades/index.html' %}
+
+{% block contenido %}
+<h2>Crear nueva Categoría</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear Categoría</button>
+</form>
+{% endblock %}
