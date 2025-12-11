@@ -27,10 +27,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Categorías</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Etiquetas</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'create_category' %}">Crear Categoría</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'create_tag' %}">Crear Etiqueta</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'posts' %}">Posts</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Sobre mí</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'search_posts' %}">Buscar Posts</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'about' %}">Sobre mí</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,7 +56,19 @@
         
         
         {% block contenido %}
-            
+        {% if ultimo_post %}
+        <div class="container my-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ ultimo_post.title }}</h2>
+                    <p class="card-text">{{ ultimo_post.content|truncatewords:40 }}</p>
+                    <p class="card-text"><small class="text-muted">Categoría: {{ ultimo_post.category.name }}</small></p>
+                    <a href="{% url 'post_detail' ultimo_post.id %}" class="btn btn-primary">Leer post completo</a>
+                    <a href="{% url 'posts' %}" class="btn btn-secondary ms-2">Ver todos los posts</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         {% endblock contenido %}
             
 
@@ -64,8 +77,6 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Aquí puedes agregar tu contenido personalizado, los post preview han sido eliminados -->
-                    <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Leer →</a></div>
                 </div>
             </div>
         </div>
@@ -75,9 +86,8 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <ul class="list-inline text-center">
-                            <!-- Íconos de Facebook y Twitter eliminados -->
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="https://github.com/priigimenez">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-github fa-stack-1x fa-inverse"></i>

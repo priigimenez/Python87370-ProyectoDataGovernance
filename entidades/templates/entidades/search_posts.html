@@ -1,0 +1,23 @@
+{% extends 'entidades/index.html' %}
+
+{% block contenido %}
+<h2>Buscar Posts</h2>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if results %}
+    <h3>Resultados:</h3>
+    <ul>
+    {% for post in results %}
+        <li>
+            <strong>{{ post.title }}</strong><br>
+            {{ post.content|truncatewords:20 }}
+        </li>
+    {% endfor %}
+    </ul>
+{% elif form.cleaned_data.query %}
+    <p>No se encontraron posts.</p>
+{% endif %}
+{% endblock %}

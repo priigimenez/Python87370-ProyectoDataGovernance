@@ -23,3 +23,6 @@ class TagForm(forms.ModelForm):
         labels = {
             'name': 'Etiqueta (ej: "Data Quality", "Metadata", "Stewardship")'
         }
+
+class PostSearchForm(forms.Form):
+    query = forms.CharField(label='Buscar posts', max_length=100, required=False)

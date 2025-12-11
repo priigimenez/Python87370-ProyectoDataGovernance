@@ -1,0 +1,22 @@
+{% extends 'entidades/index.html' %}
+
+{% block titulo %}
+<h1>{{ post.title }}</h1>
+<span class="subheading">{{ post.category.name }}</span>
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">Categoría: {{ post.category.name }}</small></p>
+            <p class="card-text"><small class="text-muted">Etiquetas: {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small></p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Imagen del post" class="img-fluid my-3" />
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -21,7 +21,7 @@
         <p><strong>Categoría:</strong> {{ post.category.name }}</p>
         <p><strong>Etiquetas:</strong> {% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
         {% if post.image %}<img src="{{ post.image.url }}" alt="Imagen del post" style="max-width:200px;" />{% endif %}
-        <a href=>Leer más</a>
+        <a href="{% url 'post_detail' post.id %}">Leer más</a>
     </li>
     {% empty %}
     <li>No hay posts disponibles.</li>
